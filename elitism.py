@@ -4,6 +4,9 @@ import random
 
 pygame.init()
 
+font = pygame.font.Font(None, 36)
+generation_surface = font.render("Generation: 1", True, (0, 0, 0))
+
 # Set up the display
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -33,7 +36,7 @@ class Obstacle():
         pygame.draw.rect(screen, (255, 0, 0), self.body.move(self.position[0], self.position[1]))
 
 OBSTACLES = []
-OBSTACLES.append(Obstacle(400, 200, 20, 200))
+OBSTACLES.append(Obstacle(400, 210, 20, 200))
 
 class Agent():
     def __init__(self):
@@ -189,12 +192,19 @@ while running:
         frame_count = 0
         print(f"Generation: {population.generation}")
 
+        generation_surface = font.render(
+            f"Generation: {population.generation}",
+            True,
+            (0, 0, 0)
+        )
+
     # Draw the win
     win.draw()
     for obstacle in OBSTACLES:
         obstacle.draw()
 
     # Update the display
+    screen.blit(generation_surface, (10, 10))
     pygame.display.flip()
 
 pygame.quit()

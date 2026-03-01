@@ -4,6 +4,9 @@ import random
 
 pygame.init()
 
+font = pygame.font.Font(None, 36)
+generation_surface = font.render("Generation: 1", True, (0, 0, 0))
+
 # Set up the display
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -13,7 +16,7 @@ clock = pygame.time.Clock()
 
 # Set up the moves and lifespan of a generation
 DIRECTIONS = ["up", "down", "left", "right"]
-LIFESPAN = 400
+LIFESPAN = 200
 
 class Agent():
     def __init__(self):
@@ -164,11 +167,18 @@ while running:
         frame_count = 0
         print(f"Generation: {population.generation}")
 
+        generation_surface = font.render(
+            f"Generation: {population.generation}",
+            True,
+            (0, 0, 0),
+        )
+
     # Draw the win
     win.draw()
     obstacle.draw()
 
     # Update the display
+    screen.blit(generation_surface, (10, 10))
     pygame.display.flip()
 
 pygame.quit()
